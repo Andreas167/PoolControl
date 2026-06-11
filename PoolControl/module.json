@@ -1,0 +1,16 @@
+{
+    "id": "{D3E4F5A6-B7C8-9012-DEF3-456789012345}",
+    "name": "PoolControl",
+    "type": 3,
+    "vendor": "",
+    "aliases": [
+        "Pool Steuerung",
+        "Poolsteuerung",
+        "Pool Control"
+    ],
+    "url": "",
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "POOL3"
+}
