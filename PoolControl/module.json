@@ -5,7 +5,7 @@
   "vendor": "",
   "prefix": "POOL3",
   "version": "1.0.2",
-  "compatibility": ">=7.0",
+  "compatibility": "7.0",
   "parentRequirements": [],
   "childRequirements": [],
   "implemented": [],
