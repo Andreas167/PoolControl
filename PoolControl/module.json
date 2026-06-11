@@ -3,6 +3,9 @@
     "name": "PoolControl",
     "type": 3,
     "vendor": "",
+    "aliases": [
+        "Pool Control"
+    ],
     "url": "",
     "parentRequirements": [],
     "childRequirements": [],
