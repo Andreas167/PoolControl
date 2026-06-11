@@ -2,82 +2,101 @@
   "elements": [
     {
       "type": "ExpansionPanel",
-      "caption": "1 · Aktoren",
+      "caption": "1 · Pumpe & Heizung",
       "expanded": true,
       "items": [
-        { "type": "Label", "bold": true, "caption": "Umwälzpumpe (UP)" },
-        { "type": "Select", "name": "UpTargetMode", "caption": "Schaltziel-Typ", "options": [
-          { "caption": "Variable (mit/ohne Aktion)", "value": 0 },
-          { "caption": "Instanz-Aktion direkt", "value": 1 }
+        { "type": "Label", "bold": true, "caption": "Umwälzpumpe" },
+        { "type": "Label", "caption": "So schaltet das Modul die Pumpe ein und aus. Wähle zuerst, wie die Pumpe angesteuert wird:" },
+        { "type": "Select", "name": "UpTargetMode", "caption": "Art der Ansteuerung", "options": [
+          { "caption": "Über eine schaltbare Variable", "value": 0 },
+          { "caption": "Über ein anderes Gerät (Aktion)", "value": 1 }
         ] },
-        { "type": "SelectVariable", "name": "UpTargetVarId", "caption": "Schaltziel-Variable (bei Typ Variable)" },
-        { "type": "SelectInstance", "name": "UpTargetInstanceId", "caption": "Ziel-Instanz (bei Typ Instanz-Aktion)" },
-        { "type": "ValidationTextBox", "name": "UpTargetIdent", "caption": "Aktions-Ident (bei Typ Instanz-Aktion)" },
-        { "type": "SelectVariable", "name": "UpFeedbackVarId", "caption": "Rückmeldung (optional → Open-Loop wenn leer)" },
-        { "type": "SelectVariable", "name": "UpPowerVarId", "caption": "Leistungs-Messung [W] (optional)" },
+        { "type": "Label", "caption": "• \"Über eine schaltbare Variable\": Du wählst direkt die Ein/Aus-Variable der Pumpe (der Normalfall, z. B. bei Shelly, einer Steckdose oder einem Schaltaktor)." },
+        { "type": "Label", "caption": "• \"Über ein anderes Gerät\": Nur nötig, wenn die Pumpe keine eigene schaltbare Variable hat, sondern über ein Geräte-Modul gesteuert wird." },
+        { "type": "SelectVariable", "name": "UpTargetVarId", "caption": "Schaltbare Variable der Pumpe" },
+        { "type": "Label", "caption": "Nur ausfüllen bei \"Über eine schaltbare Variable\"." },
+        { "type": "SelectInstance", "name": "UpTargetInstanceId", "caption": "Gerät, das die Pumpe schaltet" },
+        { "type": "ValidationTextBox", "name": "UpTargetIdent", "caption": "Name der Schaltaktion im Gerät" },
+        { "type": "Label", "caption": "Die beiden Felder darüber nur ausfüllen bei \"Über ein anderes Gerät\". Den Namen der Schaltaktion findest du in der Dokumentation des jeweiligen Geräte-Moduls." },
+        { "type": "SelectVariable", "name": "UpFeedbackVarId", "caption": "Rückmeldung: läuft die Pumpe wirklich? (optional)" },
+        { "type": "Label", "caption": "Variable, die den tatsächlichen Pumpenzustand meldet. Wenn gesetzt, prüft das Modul, ob die Pumpe wirklich geschaltet hat. Leer lassen, wenn keine Rückmeldung vorhanden ist." },
+        { "type": "SelectVariable", "name": "UpPowerVarId", "caption": "Stromverbrauch der Pumpe in Watt (optional)" },
+        { "type": "Label", "caption": "Für die Energie- und Kostenberechnung. Leer lassen, wenn nicht gemessen – dann wird der Festwert aus dem Reiter \"Energie\" verwendet." },
         { "type": "Label", "caption": " " },
-        { "type": "Label", "bold": true, "caption": "Heizung / Wärmepumpe (PH)" },
-        { "type": "Select", "name": "PhTargetMode", "caption": "Schaltziel-Typ", "options": [
-          { "caption": "Variable (mit/ohne Aktion)", "value": 0 },
-          { "caption": "Instanz-Aktion direkt", "value": 1 }
+        { "type": "Label", "bold": true, "caption": "Heizung / Wärmepumpe" },
+        { "type": "Label", "caption": "Gleiche Logik wie bei der Pumpe. Leer lassen, wenn keine Heizung vorhanden ist." },
+        { "type": "Select", "name": "PhTargetMode", "caption": "Art der Ansteuerung", "options": [
+          { "caption": "Über eine schaltbare Variable", "value": 0 },
+          { "caption": "Über ein anderes Gerät (Aktion)", "value": 1 }
         ] },
-        { "type": "SelectVariable", "name": "PhTargetVarId", "caption": "Schaltziel-Variable (bei Typ Variable)" },
-        { "type": "SelectInstance", "name": "PhTargetInstanceId", "caption": "Ziel-Instanz (bei Typ Instanz-Aktion)" },
-        { "type": "ValidationTextBox", "name": "PhTargetIdent", "caption": "Aktions-Ident (bei Typ Instanz-Aktion)" },
-        { "type": "SelectVariable", "name": "PhFeedbackVarId", "caption": "Rückmeldung (optional)" },
-        { "type": "SelectVariable", "name": "PhPowerVarId", "caption": "Leistungs-Messung [W] (optional)" }
+        { "type": "SelectVariable", "name": "PhTargetVarId", "caption": "Schaltbare Variable der Heizung" },
+        { "type": "Label", "caption": "Nur ausfüllen bei \"Über eine schaltbare Variable\"." },
+        { "type": "SelectInstance", "name": "PhTargetInstanceId", "caption": "Gerät, das die Heizung schaltet" },
+        { "type": "ValidationTextBox", "name": "PhTargetIdent", "caption": "Name der Schaltaktion im Gerät" },
+        { "type": "Label", "caption": "Die beiden Felder darüber nur ausfüllen bei \"Über ein anderes Gerät\"." },
+        { "type": "SelectVariable", "name": "PhFeedbackVarId", "caption": "Rückmeldung: läuft die Heizung wirklich? (optional)" },
+        { "type": "SelectVariable", "name": "PhPowerVarId", "caption": "Stromverbrauch der Heizung in Watt (optional)" }
       ]
     },
     {
       "type": "ExpansionPanel",
       "caption": "2 · Sensoren",
       "items": [
-        { "type": "SelectVariable", "name": "PoolTempVarId", "caption": "Pool-Temperatur Ist [°C]" },
-        { "type": "SelectVariable", "name": "PoolSetpointVarId", "caption": "Pool-Solltemperatur [°C]" },
-        { "type": "SelectVariable", "name": "OutsideTempVarId", "caption": "Außentemperatur [°C] (für Frostschutz, optional)" },
-        { "type": "SelectVariable", "name": "PvPowerVarId", "caption": "PV-Überschuss [W] (optional)" },
-        { "type": "NumberSpinner", "name": "PvPowerFactor", "caption": "PV-Messwert-Faktor (z. B. -1 bei invertiertem Vorzeichen)", "digits": 2 },
-        { "type": "SelectVariable", "name": "EnergyCheapVarId", "caption": "Energie-günstig-Signal [Bool] (Tarif-Modul, optional)" },
-        { "type": "NumberSpinner", "name": "SensorStaleSec", "caption": "Sensor-Timeout (stale) [s]", "suffix": " s", "minimum": 0, "maximum": 3600 },
+        { "type": "Label", "caption": "Verknüpfe hier die Messwerte, die das Modul für seine Entscheidungen braucht." },
+        { "type": "SelectVariable", "name": "PoolTempVarId", "caption": "Aktuelle Wassertemperatur (°C)" },
+        { "type": "SelectVariable", "name": "PoolSetpointVarId", "caption": "Gewünschte Wassertemperatur (°C)" },
+        { "type": "Label", "caption": "Die Zieltemperatur, auf die geheizt werden soll." },
+        { "type": "SelectVariable", "name": "OutsideTempVarId", "caption": "Außentemperatur (°C) – für Frostschutz (optional)" },
+        { "type": "Label", "caption": "Ohne diesen Sensor ist der Frostschutz aus Sicherheitsgründen deaktiviert." },
+        { "type": "SelectVariable", "name": "PvPowerVarId", "caption": "Solar-Überschuss in Watt (optional)" },
+        { "type": "Label", "caption": "Überschüssige PV-Leistung. Wird genutzt, um vorrangig mit Sonnenstrom zu heizen/umzuwälzen." },
+        { "type": "NumberSpinner", "name": "PvPowerFactor", "caption": "Korrekturfaktor für den Solar-Messwert", "digits": 2 },
+        { "type": "Label", "caption": "Normalerweise 1. Auf -1 setzen, falls dein Zähler den Überschuss mit umgekehrtem Vorzeichen liefert (Einspeisung als negativer Wert)." },
+        { "type": "SelectVariable", "name": "EnergyCheapVarId", "caption": "Signal \"Strom ist gerade günstig\" (optional)" },
+        { "type": "Label", "caption": "Ja/Nein-Variable z. B. aus einem Strompreis-Modul. Wenn aktiv, darf geheizt werden, auch ohne Solar-Überschuss." },
+        { "type": "NumberSpinner", "name": "SensorStaleSec", "caption": "Sensor gilt als ausgefallen nach (Sekunden)", "suffix": " s", "minimum": 0, "maximum": 3600 },
+        { "type": "Label", "caption": "Liefert ein Sensor länger keinen neuen Wert, wird er als ausgefallen behandelt und ignoriert. 0 = Prüfung aus." },
         { "type": "Label", "caption": " " },
-        { "type": "Label", "bold": true, "caption": "Externe Modus-Synchronisation (optional, W5)" },
-        { "type": "SelectVariable", "name": "QuickSyncVarId", "caption": "Schnellmodus-Sync [Bool]" },
-        { "type": "SelectVariable", "name": "HolidaySyncVarId", "caption": "Urlaubs-Sync [Bool]" },
-        { "type": "SelectVariable", "name": "ContinuousSyncVarId", "caption": "Dauerbetrieb-Sync [Bool]" }
+        { "type": "Label", "bold": true, "caption": "Bedienung von außen (optional)" },
+        { "type": "Label", "caption": "Hier kannst du Schalter verknüpfen, mit denen die Betriebsarten auch von außerhalb (z. B. per Taster oder App) umgeschaltet werden." },
+        { "type": "SelectVariable", "name": "QuickSyncVarId", "caption": "Externer Schalter für Schnellaufheizung" },
+        { "type": "SelectVariable", "name": "HolidaySyncVarId", "caption": "Externer Schalter für Urlaubsmodus" },
+        { "type": "SelectVariable", "name": "ContinuousSyncVarId", "caption": "Externer Schalter für Dauerbetrieb" }
       ]
     },
     {
       "type": "ExpansionPanel",
-      "caption": "3 · Sperrquellen (Interlocks)",
+      "caption": "3 · Sperren (Sicherheits-Verriegelungen)",
       "items": [
-        { "type": "Label", "caption": "Jede Quelle kann UP, PH oder beide sperren. Bei stummem Sensor greift das Stale-Verhalten (Default: Sperre lösen)." },
+        { "type": "Label", "caption": "Hier definierst du Bedingungen, die Pumpe und/oder Heizung blockieren – z. B. wenn die Schwalldusche läuft oder der Wasserstand zu niedrig ist." },
+        { "type": "Label", "caption": "Fällt der Sensor einer Sperre aus, entscheidet die Spalte \"Bei Sensorausfall\", ob die Sperre gelöst oder vorsichtshalber gehalten wird." },
         {
           "type": "List",
           "name": "LockSources",
-          "caption": "Sperrquellen",
+          "caption": "Sperren",
           "rowCount": 4,
           "add": true,
           "delete": true,
           "columns": [
-            { "caption": "Name", "name": "name", "width": "140px", "edit": { "type": "ValidationTextBox" } },
-            { "caption": "Variable", "name": "var_id", "width": "90px", "edit": { "type": "SelectVariable" } },
-            { "caption": "Bedingung", "name": "condition", "width": "110px", "edit": { "type": "Select", "options": [
-              { "caption": "Bool = true", "value": "bool_true" },
-              { "caption": "Bool = false", "value": "bool_false" },
-              { "caption": "> Schwelle", "value": "gt" },
-              { "caption": "< Schwelle", "value": "lt" }
+            { "caption": "Bezeichnung", "name": "name", "width": "140px", "edit": { "type": "ValidationTextBox" } },
+            { "caption": "Auslöser-Variable", "name": "var_id", "width": "120px", "edit": { "type": "SelectVariable" } },
+            { "caption": "Sperrt, wenn", "name": "condition", "width": "150px", "edit": { "type": "Select", "options": [
+              { "caption": "Variable = Ein/Ja", "value": "bool_true" },
+              { "caption": "Variable = Aus/Nein", "value": "bool_false" },
+              { "caption": "Wert größer als Grenze", "value": "gt" },
+              { "caption": "Wert kleiner als Grenze", "value": "lt" }
             ] } },
-            { "caption": "Schwelle", "name": "threshold", "width": "70px", "edit": { "type": "NumberSpinner", "digits": 1 } },
-            { "caption": "Wirkt auf", "name": "affects", "width": "90px", "edit": { "type": "Select", "options": [
-              { "caption": "UP + PH", "value": "both" },
-              { "caption": "Nur UP", "value": "pump" },
-              { "caption": "Nur PH", "value": "heater" }
+            { "caption": "Grenzwert", "name": "threshold", "width": "80px", "edit": { "type": "NumberSpinner", "digits": 1 } },
+            { "caption": "Sperrt", "name": "affects", "width": "130px", "edit": { "type": "Select", "options": [
+              { "caption": "Pumpe + Heizung", "value": "both" },
+              { "caption": "Nur Pumpe", "value": "pump" },
+              { "caption": "Nur Heizung", "value": "heater" }
             ] } },
-            { "caption": "Stale-Verhalten", "name": "stale_action", "width": "110px", "edit": { "type": "Select", "options": [
-              { "caption": "Sperre lösen", "value": "loosen" },
-              { "caption": "Sperre halten", "value": "hold" }
+            { "caption": "Bei Sensorausfall", "name": "stale_action", "width": "150px", "edit": { "type": "Select", "options": [
+              { "caption": "Sperre lösen (Komfort)", "value": "loosen" },
+              { "caption": "Sperre halten (sicher)", "value": "hold" }
             ] } },
-            { "caption": "Stale nach [s]", "name": "stale_after_sec", "width": "90px", "edit": { "type": "NumberSpinner", "minimum": 60, "maximum": 7200 } }
+            { "caption": "Ausfall nach (s)", "name": "stale_after_sec", "width": "110px", "edit": { "type": "NumberSpinner", "minimum": 60, "maximum": 7200 } }
           ],
           "values": [
             { "name": "Schwalldusche", "var_id": 0, "condition": "gt", "threshold": 500, "affects": "both", "stale_action": "loosen", "stale_after_sec": 900 }
@@ -87,28 +106,44 @@
     },
     {
       "type": "ExpansionPanel",
-      "caption": "4 · Heizregelung",
+      "caption": "4 · Heizverhalten",
       "items": [
-        { "type": "NumberSpinner", "name": "HeatHysteresis", "caption": "Hysterese [K]", "suffix": " K", "digits": 1 },
-        { "type": "NumberSpinner", "name": "PhMinOnSec", "caption": "Mindest-Einschaltzeit [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "PhMinOffSec", "caption": "Mindest-Ausschaltzeit [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "PumpLeadSec", "caption": "UP-Vorlauf vor PH [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "PumpTrailSec", "caption": "UP-Nachlauf nach PH [s]", "suffix": " s" },
-        { "type": "CheckBox", "name": "SensorInPipe", "caption": "Temperaturfühler im Rohr (Mess-Vorlauf nötig)" },
-        { "type": "NumberSpinner", "name": "SensorWarmupSec", "caption": "Mess-Vorlaufzeit [s]", "suffix": " s" }
+        { "type": "Label", "caption": "Feineinstellung, wann und wie lange die Heizung schaltet." },
+        { "type": "NumberSpinner", "name": "HeatHysteresis", "caption": "Schaltabstand zur Solltemperatur (K)", "suffix": " K", "digits": 1 },
+        { "type": "Label", "caption": "Die Heizung springt erst an, wenn die Wassertemperatur um diesen Wert unter die Solltemperatur fällt. Verhindert ständiges Ein/Aus." },
+        { "type": "NumberSpinner", "name": "PhMinOnSec", "caption": "Mindestlaufzeit der Heizung (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "So lange bleibt die Heizung nach dem Einschalten mindestens an – schont das Gerät." },
+        { "type": "NumberSpinner", "name": "PhMinOffSec", "caption": "Mindestpause der Heizung (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "So lange bleibt die Heizung nach dem Ausschalten mindestens aus." },
+        { "type": "NumberSpinner", "name": "PumpLeadSec", "caption": "Pumpe läuft vor Heizung an (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Vorlaufzeit: Die Pumpe startet diese Zeit früher als die Heizung, damit Wasser zirkuliert, bevor geheizt wird." },
+        { "type": "NumberSpinner", "name": "PumpTrailSec", "caption": "Pumpe läuft nach Heizung nach (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Nachlaufzeit: Die Pumpe läuft nach dem Abschalten der Heizung noch weiter, um Restwärme abzuführen." },
+        { "type": "CheckBox", "name": "SensorInPipe", "caption": "Temperaturfühler sitzt in der Rohrleitung" },
+        { "type": "Label", "caption": "Aktivieren, wenn der Fühler im Rohr statt im Becken sitzt. Dann braucht es kurze Pumpenzirkulation für einen gültigen Messwert." },
+        { "type": "NumberSpinner", "name": "SensorWarmupSec", "caption": "Wartezeit für gültige Messung (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Nur bei Fühler in der Rohrleitung: So lange muss die Pumpe laufen, bevor der Messwert verwendet wird." }
       ]
     },
     {
       "type": "ExpansionPanel",
       "caption": "5 · Umwälzung & Tagesplan",
       "items": [
-        { "type": "NumberSpinner", "name": "Volume", "caption": "Poolvolumen [m³]", "suffix": " m³", "digits": 1 },
-        { "type": "NumberSpinner", "name": "PumpFlow", "caption": "Förderleistung [m³/h]", "suffix": " m³/h", "digits": 1 },
-        { "type": "NumberSpinner", "name": "CirculationFactor", "caption": "Umwälzfaktor", "digits": 1 },
-        { "type": "NumberSpinner", "name": "StagnationThresholdSec", "caption": "Stagnationsschwelle [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "StagnationShare", "caption": "Pflicht-Laufanteil [0..1]", "digits": 2, "minimum": 0.05, "maximum": 1.0 },
-        { "type": "NumberSpinner", "name": "DayEndHour", "caption": "Tagesende-Grenze [Uhr dezimal]", "digits": 1 },
-        { "type": "Label", "bold": true, "caption": "Garantie-Soll-Kurve (monoton steigend, max 100 %)" },
+        { "type": "Label", "caption": "Das Modul sorgt dafür, dass das Wasser pro Tag ausreichend umgewälzt wird." },
+        { "type": "NumberSpinner", "name": "Volume", "caption": "Wasservolumen des Pools (m³)", "suffix": " m³", "digits": 1 },
+        { "type": "NumberSpinner", "name": "PumpFlow", "caption": "Förderleistung der Pumpe (m³ pro Stunde)", "suffix": " m³/h", "digits": 1 },
+        { "type": "Label", "caption": "Steht meist im Datenblatt der Pumpe. Aus Volumen, Förderleistung und Umwälzfaktor berechnet das Modul die nötige tägliche Laufzeit." },
+        { "type": "NumberSpinner", "name": "CirculationFactor", "caption": "Umwälzfaktor (wie oft pro Tag komplett umwälzen)", "digits": 1 },
+        { "type": "Label", "caption": "Üblich sind 2 (das gesamte Wasser zweimal täglich umwälzen)." },
+        { "type": "NumberSpinner", "name": "StagnationThresholdSec", "caption": "Spätestens umwälzen nach Stillstand von (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Stand das Wasser so lange still, wird zwangsweise umgewälzt – verhindert Stagnation. 28800 s = 8 Stunden." },
+        { "type": "NumberSpinner", "name": "StagnationShare", "caption": "Mindest-Laufanteil pro Umwälzstart (0 bis 1)", "digits": 2, "minimum": 0.05, "maximum": 1.0 },
+        { "type": "Label", "caption": "Anteil des Tagesziels, der bei einem erzwungenen Start mindestens am Stück gelaufen wird. 0,2 = 20 %." },
+        { "type": "NumberSpinner", "name": "DayEndHour", "caption": "Tagesziel muss erreicht sein bis (Uhrzeit)", "digits": 1 },
+        { "type": "Label", "caption": "Als Dezimalzahl: 22 = 22:00 Uhr, 21.5 = 21:30 Uhr. Bis dahin soll die tägliche Umwälzung abgeschlossen sein." },
+        { "type": "Label", "caption": " " },
+        { "type": "Label", "bold": true, "caption": "Soll-Kurve über den Tag" },
+        { "type": "Label", "caption": "Legt fest, wie viel Prozent der Tages-Umwälzung zu welcher Uhrzeit bereits erledigt sein sollen. Die Werte müssen über den Tag ansteigen und bei 100 % enden." },
         {
           "type": "List",
           "name": "CurvePoints",
@@ -117,8 +152,8 @@
           "add": true,
           "delete": true,
           "columns": [
-            { "caption": "Uhrzeit (dezimal)", "name": "hour", "width": "150px", "edit": { "type": "NumberSpinner", "minimum": 0, "maximum": 24, "digits": 2 } },
-            { "caption": "Mindest-%", "name": "pct", "width": "120px", "edit": { "type": "NumberSpinner", "minimum": 1, "maximum": 100 } }
+            { "caption": "Uhrzeit (z. B. 16 = 16:00)", "name": "hour", "width": "200px", "edit": { "type": "NumberSpinner", "minimum": 0, "maximum": 24, "digits": 2 } },
+            { "caption": "Soll-Fortschritt in %", "name": "pct", "width": "150px", "edit": { "type": "NumberSpinner", "minimum": 1, "maximum": 100 } }
           ],
           "values": [
             { "hour": 12.0, "pct": 40 },
@@ -126,98 +161,130 @@
             { "hour": 20.0, "pct": 100 }
           ]
         },
-        { "type": "Label", "bold": true, "caption": "Temperaturabhängige Anpassung" },
-        { "type": "CheckBox", "name": "TempAdjustActive", "caption": "Aktiv" },
-        { "type": "Select", "name": "TempAdjustBasis", "caption": "Bezug", "options": [
-          { "caption": "Wassertemperatur", "value": "water" },
-          { "caption": "Heizung aktiv", "value": "heater" }
+        { "type": "Label", "caption": " " },
+        { "type": "Label", "bold": true, "caption": "Längere Umwälzung bei wärmerem Wasser (optional)" },
+        { "type": "CheckBox", "name": "TempAdjustActive", "caption": "Umwälzdauer an die Temperatur anpassen" },
+        { "type": "Label", "caption": "Wärmeres Wasser braucht mehr Umwälzung. Wenn aktiv, erhöht das Modul die tägliche Laufzeit entsprechend." },
+        { "type": "Select", "name": "TempAdjustBasis", "caption": "Wonach richtet sich die Erhöhung?", "options": [
+          { "caption": "Nach der Wassertemperatur", "value": "water" },
+          { "caption": "Danach, ob die Heizung läuft", "value": "heater" }
         ] },
-        { "type": "NumberSpinner", "name": "TempAdjustRefTemp", "caption": "Referenztemperatur [°C]", "suffix": " °C", "digits": 1 },
-        { "type": "NumberSpinner", "name": "TempAdjustHeaterBoost", "caption": "Heizungs-Boost-Faktor (bei Bezug 'Heizung aktiv')", "digits": 2, "minimum": 0, "maximum": 1 }
+        { "type": "NumberSpinner", "name": "TempAdjustRefTemp", "caption": "Referenztemperatur (°C)", "suffix": " °C", "digits": 1 },
+        { "type": "Label", "caption": "Nur bei \"Nach der Wassertemperatur\": Ab dieser Temperatur beginnt die Erhöhung. Übliche Basis: 28 °C." },
+        { "type": "NumberSpinner", "name": "TempAdjustHeaterBoost", "caption": "Zuschlag bei laufender Heizung (0,2 = +20 %)", "digits": 2, "minimum": 0, "maximum": 1 },
+        { "type": "Label", "caption": "Nur bei \"Danach, ob die Heizung läuft\": Um diesen Anteil wird die Umwälzdauer erhöht, solange die Heizung an ist." }
       ]
     },
     {
       "type": "ExpansionPanel",
-      "caption": "6 · PV-Optimierung",
+      "caption": "6 · Solarstrom nutzen (PV)",
       "items": [
-        { "type": "Label", "caption": "Stabilitätsbedingung (W1): Einschalt − Ausschalt ≥ P_UP + P_PH + Reserve. Wird beim Speichern geprüft." },
-        { "type": "NumberSpinner", "name": "PvOnThreshold", "caption": "Einschalt-Schwelle [W]", "suffix": " W" },
-        { "type": "NumberSpinner", "name": "PvOffThreshold", "caption": "Ausschalt-Schwelle [W]", "suffix": " W" },
-        { "type": "NumberSpinner", "name": "PvOnDebounceSec", "caption": "Einschalt-Debounce [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "PvOffDebounceSec", "caption": "Ausschalt-Debounce [s] (Wolkenschutz)", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "PvStabilityReserve", "caption": "Stabilitäts-Reserve [0..1]", "digits": 2 },
-        { "type": "NumberSpinner", "name": "PvWindowStartHour", "caption": "Zeitfenster-Start [Uhr]", "digits": 1 },
-        { "type": "NumberSpinner", "name": "PvWindowEndHour", "caption": "Zeitfenster-Ende [Uhr]", "digits": 1 }
+        { "type": "Label", "caption": "Steuert, ab wann mit überschüssigem Solarstrom geheizt/umgewälzt wird. Nur relevant, wenn oben ein Solar-Überschuss-Sensor verknüpft ist." },
+        { "type": "NumberSpinner", "name": "PvOnThreshold", "caption": "Einschalten ab Überschuss von (Watt)", "suffix": " W" },
+        { "type": "NumberSpinner", "name": "PvOffThreshold", "caption": "Ausschalten unter Überschuss von (Watt)", "suffix": " W" },
+        { "type": "Label", "caption": "Der Abstand zwischen Ein- und Ausschaltschwelle muss größer sein als der Eigenverbrauch von Pumpe + Heizung, sonst schaltet die Anlage ständig. Das Modul prüft das beim Speichern." },
+        { "type": "NumberSpinner", "name": "PvOnDebounceSec", "caption": "Überschuss muss anhalten für (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Erst wenn der Überschuss so lange über der Schwelle liegt, wird eingeschaltet. Verhindert Schalten bei kurzen Schwankungen." },
+        { "type": "NumberSpinner", "name": "PvOffDebounceSec", "caption": "Wartezeit vor dem Ausschalten (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Schutz gegen kurze Wolken: Erst wenn der Überschuss so lange zu niedrig ist, wird ausgeschaltet." },
+        { "type": "NumberSpinner", "name": "PvStabilityReserve", "caption": "Sicherheitsreserve (0,1 = 10 %)", "digits": 2 },
+        { "type": "Label", "caption": "Zusätzlicher Puffer für die Schwellen-Prüfung. 0,1 ist ein guter Standardwert." },
+        { "type": "NumberSpinner", "name": "PvWindowStartHour", "caption": "Solar-Zeitfenster von (Uhrzeit)", "digits": 1 },
+        { "type": "NumberSpinner", "name": "PvWindowEndHour", "caption": "Solar-Zeitfenster bis (Uhrzeit)", "digits": 1 },
+        { "type": "Label", "caption": "Falls kein Solar-Sensor vorhanden ist, gilt ersatzweise dieses Zeitfenster als \"Strom günstig\". Als Dezimalzahl (z. B. 16.5 = 16:30)." }
       ]
     },
     {
       "type": "ExpansionPanel",
       "caption": "7 · Frostschutz",
       "items": [
-        { "type": "Label", "caption": "Ohne Außentemperatur-Sensor inaktiv (fail-safe). PH-Schwelle muss unter UP-Schwelle liegen." },
-        { "type": "NumberSpinner", "name": "FrostUpThreshold", "caption": "UP-Frostschwelle [°C]", "suffix": " °C", "digits": 1 },
-        { "type": "NumberSpinner", "name": "FrostPhThreshold", "caption": "PH-Frostschwelle [°C]", "suffix": " °C", "digits": 1 },
-        { "type": "NumberSpinner", "name": "FrostHysteresis", "caption": "Verlassens-Hysterese [K]", "suffix": " K", "digits": 1 }
+        { "type": "Label", "caption": "Schützt die Anlage bei Kälte. Benötigt den Außentemperatur-Sensor – ohne ihn ist der Frostschutz aus Sicherheitsgründen aus." },
+        { "type": "NumberSpinner", "name": "FrostUpThreshold", "caption": "Pumpe einschalten ab Außentemperatur unter (°C)", "suffix": " °C", "digits": 1 },
+        { "type": "Label", "caption": "Bei dieser Außentemperatur läuft die Pumpe, damit das Wasser in Bewegung bleibt und nicht einfriert. Üblich: 3 °C." },
+        { "type": "NumberSpinner", "name": "FrostPhThreshold", "caption": "Zusätzlich Heizung ab Außentemperatur unter (°C)", "suffix": " °C", "digits": 1 },
+        { "type": "Label", "caption": "Bei noch stärkerer Kälte springt auch die Heizung an. Muss kälter sein als der Pumpen-Wert oben. Üblich: -5 °C." },
+        { "type": "NumberSpinner", "name": "FrostHysteresis", "caption": "Frostschutz erst beenden bei Erwärmung um (K)", "suffix": " K", "digits": 1 },
+        { "type": "Label", "caption": "Der Frostschutz bleibt aktiv, bis die Temperatur um diesen Wert über die Schwelle steigt. Verhindert ständiges Ein/Aus an der Grenze." }
       ]
     },
     {
       "type": "ExpansionPanel",
-      "caption": "8 · Fault & Watchdog",
+      "caption": "8 · Störungserkennung",
       "items": [
-        { "type": "NumberSpinner", "name": "FaultBucketThreshold", "caption": "Leaky-Bucket Fault-Schwelle", "digits": 1 },
-        { "type": "NumberSpinner", "name": "FaultBucketRecoverStep", "caption": "Bucket-Erholung pro Erfolg", "digits": 2, "minimum": 0.1, "maximum": 5 },
-        { "type": "NumberSpinner", "name": "FaultBucketLeakRate", "caption": "Leak-Rate [pro Minute]", "digits": 4 },
-        { "type": "NumberSpinner", "name": "VerifyDeadlineSec", "caption": "Verifikationsfrist [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "MaxRetries", "caption": "Max. Retries", "minimum": 1, "maximum": 10 },
-        { "type": "NumberSpinner", "name": "QuittRateLimitSec", "caption": "Quittierungs-Rate-Limit [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "WatchdogPumpPlausSec", "caption": "UP Plausibilität [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "WatchdogPumpAbsSec", "caption": "UP Absolut-Grenze [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "WatchdogHeaterPlausSec", "caption": "PH Plausibilität [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "WatchdogHeaterAbsSec", "caption": "PH Absolut-Grenze [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "FaultEmergencyRunSec", "caption": "Notlauf-Dauer [s]", "suffix": " s" },
-        { "type": "NumberSpinner", "name": "FaultEmergencyIntervalSec", "caption": "Notlauf-Intervall [s]", "suffix": " s" }
+        { "type": "Label", "caption": "Erkennt Defekte (z. B. eine Pumpe, die nicht schaltet) und bringt die Anlage in einen sicheren Zustand. Die Standardwerte passen für die meisten Anlagen." },
+        { "type": "NumberSpinner", "name": "FaultBucketThreshold", "caption": "Störung auslösen nach so vielen Fehlern", "digits": 1 },
+        { "type": "Label", "caption": "Fehler werden gesammelt. Ist diese Zahl erreicht, geht die Anlage in den Störungszustand. Üblich: 5." },
+        { "type": "NumberSpinner", "name": "FaultBucketRecoverStep", "caption": "Fehler abbauen pro erfolgreicher Schaltung", "digits": 2 },
+        { "type": "Label", "caption": "Funktioniert eine Schaltung wieder, sinkt der Fehlerzähler um diesen Wert." },
+        { "type": "NumberSpinner", "name": "FaultBucketLeakRate", "caption": "Fehler abbauen pro Minute", "digits": 4 },
+        { "type": "Label", "caption": "Über die Zeit verfallen alte Fehler langsam von selbst." },
+        { "type": "NumberSpinner", "name": "VerifyDeadlineSec", "caption": "Auf Rückmeldung warten (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "So lange wartet das Modul nach einem Schaltbefehl auf die Rückmeldung, bevor es einen Fehler zählt. Nur relevant mit Rückmelde-Variable." },
+        { "type": "NumberSpinner", "name": "MaxRetries", "caption": "Schaltversuche bei Fehler", "minimum": 1, "maximum": 10 },
+        { "type": "Label", "caption": "So oft wird ein fehlgeschlagener Schaltbefehl wiederholt." },
+        { "type": "NumberSpinner", "name": "QuittRateLimitSec", "caption": "Störung frühestens wieder quittierbar nach (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Schutz gegen zu häufiges Zurücksetzen einer Störung." },
+        { "type": "Label", "caption": " " },
+        { "type": "Label", "bold": true, "caption": "Laufzeit-Überwachung" },
+        { "type": "Label", "caption": "Schaltet ab, falls Pumpe oder Heizung unplausibel lange durchlaufen (möglicher Defekt)." },
+        { "type": "NumberSpinner", "name": "WatchdogPumpPlausSec", "caption": "Pumpe: Warnung bei Dauerlauf über (Sekunden)", "suffix": " s" },
+        { "type": "NumberSpinner", "name": "WatchdogPumpAbsSec", "caption": "Pumpe: Notabschaltung bei Dauerlauf über (Sekunden)", "suffix": " s" },
+        { "type": "NumberSpinner", "name": "WatchdogHeaterPlausSec", "caption": "Heizung: Warnung bei Dauerlauf über (Sekunden)", "suffix": " s" },
+        { "type": "NumberSpinner", "name": "WatchdogHeaterAbsSec", "caption": "Heizung: Notabschaltung bei Dauerlauf über (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Beispiel: 64800 s = 18 Stunden, 86400 s = 24 Stunden." },
+        { "type": "Label", "caption": " " },
+        { "type": "Label", "bold": true, "caption": "Notbetrieb während einer Störung" },
+        { "type": "NumberSpinner", "name": "FaultEmergencyRunSec", "caption": "Pumpe im Notbetrieb laufen lassen für (Sekunden)", "suffix": " s" },
+        { "type": "NumberSpinner", "name": "FaultEmergencyIntervalSec", "caption": "Notbetrieb wiederholen alle (Sekunden)", "suffix": " s" },
+        { "type": "Label", "caption": "Auch im Störungszustand wird das Wasser gelegentlich umgewälzt, damit es nicht steht. Beispiel: 900 s laufen, alle 21600 s (6 h) wiederholen." }
       ]
     },
     {
       "type": "ExpansionPanel",
-      "caption": "9 · Energie",
+      "caption": "9 · Energie & Kosten",
       "items": [
-        { "type": "NumberSpinner", "name": "PumpPowerW", "caption": "UP Leistung Festwert [W] (Fallback + W1-Basis)", "suffix": " W" },
-        { "type": "NumberSpinner", "name": "HeaterPowerW", "caption": "PH Leistung Festwert [W] (Fallback + W1-Basis)", "suffix": " W" },
-        { "type": "NumberSpinner", "name": "ElectricityPrice", "caption": "Strompreis [€/kWh]", "suffix": " €/kWh", "digits": 4 }
+        { "type": "NumberSpinner", "name": "PumpPowerW", "caption": "Stromverbrauch der Pumpe in Watt", "suffix": " W" },
+        { "type": "NumberSpinner", "name": "HeaterPowerW", "caption": "Stromverbrauch der Heizung in Watt", "suffix": " W" },
+        { "type": "Label", "caption": "Diese Festwerte werden für die Kostenberechnung verwendet, wenn keine echte Verbrauchsmessung (Reiter 1) verknüpft ist." },
+        { "type": "NumberSpinner", "name": "ElectricityPrice", "caption": "Strompreis (€ pro kWh)", "suffix": " €/kWh", "digits": 4 }
       ]
     },
     {
       "type": "ExpansionPanel",
       "caption": "10 · System",
       "items": [
-        { "type": "CheckBox", "name": "SimMode", "caption": "⚠ Simulationsbetrieb (Dry-Run) – schaltet keine Aktoren" },
-        { "type": "NumberSpinner", "name": "CycleIntervalSec", "caption": "Zyklusintervall [s]", "suffix": " s", "minimum": 30, "maximum": 300 },
-        { "type": "NumberSpinner", "name": "StaggerOffsetSec", "caption": "Anlauf-Offset [s] (Mehrfach-Instanzen)", "suffix": " s", "minimum": 0, "maximum": 60 }
+        { "type": "CheckBox", "name": "SimMode", "caption": "Testbetrieb – schaltet nichts wirklich" },
+        { "type": "Label", "caption": "⚠ Empfohlen für die Inbetriebnahme: Das Modul durchläuft die komplette Logik und protokolliert alles, schaltet aber keine echten Geräte. So kannst du gefahrlos prüfen, ob alles richtig konfiguriert ist." },
+        { "type": "NumberSpinner", "name": "CycleIntervalSec", "caption": "Wie oft das Modul prüft (Sekunden)", "suffix": " s", "minimum": 30, "maximum": 300 },
+        { "type": "Label", "caption": "Abstand zwischen zwei Prüfdurchläufen. 60 s ist ein guter Standardwert." },
+        { "type": "NumberSpinner", "name": "StaggerOffsetSec", "caption": "Startverzögerung (Sekunden)", "suffix": " s", "minimum": 0, "maximum": 60 },
+        { "type": "Label", "caption": "Nur nötig, wenn du mehrere Pools/Instanzen betreibst – verschiebt den Start, damit nicht alle gleichzeitig prüfen. Sonst 0 lassen." }
       ]
     },
     {
       "type": "ExpansionPanel",
       "caption": "11 · Aktionen",
       "items": [
-        { "type": "Button", "caption": "FAULT quittieren", "onClick": "IPS_RequestAction($id, 'AckFault', true);" },
-        { "type": "Button", "caption": "Tagesreset", "onClick": "IPS_RequestAction($id, 'DayReset', true);" },
-        { "type": "Button", "caption": "Konfiguration neu prüfen", "onClick": "IPS_ApplyChanges($id);" }
+        { "type": "Button", "caption": "Störung zurücksetzen", "onClick": "IPS_RequestAction($id, 'AckFault', true);" },
+        { "type": "Label", "caption": "Setzt einen Störungszustand zurück, sobald die Ursache behoben ist." },
+        { "type": "Button", "caption": "Tageszähler zurücksetzen", "onClick": "IPS_RequestAction($id, 'DayReset', true);" },
+        { "type": "Label", "caption": "Setzt die Laufzeit- und Energiezähler des heutigen Tages auf null." },
+        { "type": "Button", "caption": "Einstellungen erneut prüfen", "onClick": "IPS_ApplyChanges($id);" }
       ]
     }
   ],
   "status": [
     { "code": 102, "icon": "active", "caption": "Aktiv" },
     { "code": 104, "icon": "inactive", "caption": "Inaktiv" },
-    { "code": 201, "icon": "error", "caption": "UP-Schaltziel ungültig" },
-    { "code": 202, "icon": "error", "caption": "PH-Schaltziel ungültig" },
+    { "code": 201, "icon": "error", "caption": "Schaltziel der Pumpe ungültig" },
+    { "code": 202, "icon": "error", "caption": "Schaltziel der Heizung ungültig" },
     { "code": 203, "icon": "error", "caption": "Pflicht-Sensor fehlt" },
-    { "code": 204, "icon": "error", "caption": "Frost-Konfiguration ungültig" },
-    { "code": 205, "icon": "error", "caption": "Umwälz-Konfiguration ungültig" },
-    { "code": 206, "icon": "error", "caption": "Soll-Kurve ungültig" },
-    { "code": 207, "icon": "error", "caption": "PV-Schwellenabstand zu klein (Takt-Gefahr)" },
-    { "code": 208, "icon": "error", "caption": "PV-Zeitfenster ungültig" },
-    { "code": 209, "icon": "error", "caption": "Tagesende vor letztem Stützpunkt" },
-    { "code": 210, "icon": "error", "caption": "FAULT aktiv" }
+    { "code": 204, "icon": "error", "caption": "Frostschutz falsch eingestellt (Heizungs-Schwelle muss kälter als Pumpen-Schwelle sein)" },
+    { "code": 205, "icon": "error", "caption": "Umwälzung falsch eingestellt (Volumen und Förderleistung prüfen)" },
+    { "code": 206, "icon": "error", "caption": "Soll-Kurve ungültig (muss ansteigen und bei 100 % enden)" },
+    { "code": 207, "icon": "error", "caption": "Solar-Schwellen zu eng (Gefahr von ständigem Schalten)" },
+    { "code": 208, "icon": "error", "caption": "Solar-Zeitfenster ungültig (Ende muss nach Start liegen)" },
+    { "code": 209, "icon": "error", "caption": "Tagesende liegt vor dem letzten Soll-Kurven-Punkt" },
+    { "code": 210, "icon": "error", "caption": "Störung aktiv" }
   ]
 }

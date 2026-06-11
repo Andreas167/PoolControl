@@ -3,11 +3,6 @@
     "name": "PoolControl",
     "type": 3,
     "vendor": "",
-    "aliases": [
-        "Pool Steuerung",
-        "Poolsteuerung",
-        "Pool Control"
-    ],
     "url": "",
     "parentRequirements": [],
     "childRequirements": [],
