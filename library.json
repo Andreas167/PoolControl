@@ -1,9 +1,14 @@
 {
-  "id": "{C2D3E4F5-A6B7-8901-CDEF-234567890123}",
-  "author": "Team 3",
-  "name": "PoolControl",
-  "description": "Hardware-unabhängige Pool-Steuerung mit PV-Optimierung, Temperaturregelung, Interlocks und Fault-Management. Moderner PHP-8.3-Kern (immutable State, Enums, reine Entscheidungslogik).",
-  "compatibility": ">=7.0",
-  "version": "1.0.2",
-  "url": ""
+    "id": "{C2D3E4F5-A6B7-8901-CDEF-234567890123}",
+    "author": "Team 3",
+    "name": "PoolControl",
+    "description": "Hardware-unabhängige Pool-Steuerung mit PV-Optimierung, Temperaturregelung, Interlocks und Fault-Management. Moderner PHP-8.3-Kern (immutable State, Enums, reine Entscheidungslogik).",
+    "url": "",
+    "compatibility": {
+        "version": "7.0",
+        "date": 1577836800
+    },
+    "version": "1.0.4",
+    "build": 0,
+    "date": 0
 }
