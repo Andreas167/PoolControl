@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/../core/autoload.php';
+require_once __DIR__ . '/core/autoload.php';
 
 use PoolControl\Core\ConfigValidator;
 use PoolControl\Core\DecisionEngine;
@@ -61,7 +61,7 @@ class PoolControl extends IPSModule
     public function ApplyChanges(): void
     {
         parent::ApplyChanges();
-        $this->migrate();
+        $this->migrateConfig();
         $this->registerVariables();
 
         // Konfig-Validierung (7c.4) – Steuerbetrieb nur bei valider Konfig
@@ -608,7 +608,7 @@ class PoolControl extends IPSModule
         );
     }
 
-    private function migrate(): void
+    private function migrateConfig(): void
     {
         if ($this->ReadAttributeInteger(self::ATTR_CFG_VER) < self::CFG_VERSION) {
             $this->WriteAttributeInteger(self::ATTR_CFG_VER, self::CFG_VERSION);
